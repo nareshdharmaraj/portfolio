@@ -105,7 +105,7 @@
       display: flex;
       flex-direction: column;
       gap: 60px;
-      padding: 0 20px;
+      padding: 0 8px;
     }
 
     .academic-card {
@@ -120,6 +120,9 @@
       backdrop-filter: blur(5px);
       position: relative;
       flex-wrap: wrap;
+      min-width: 0;
+      max-width: 100%;
+      overflow: hidden;
     }
 
     .badge {
@@ -127,13 +130,15 @@
       height: 100px;
       border-radius: 70px;
       object-fit: contain;
-      align-items: center;
+      flex-shrink: 0;
     }
 
     .card-text {
       flex: 1;
       display: flex;
       flex-direction: column;
+      min-width: 0;
+      word-break: break-word;
     }
 
     .card-text h3 {
@@ -202,20 +207,45 @@
       #disclaimer-bar { font-size: 0.75em; padding: 5px 2px 3px 2px; }
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
+      .timeline {
+        padding: 0 2vw;
+      }
+      .academic-card {
+        padding: 14px 6px;
+        gap: 10px;
+        border-radius: 18px;
+      }
+      .badge {
+        width: 70px;
+        height: 70px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .timeline {
+        padding: 0 2vw;
+        gap: 30px;
+      }
       .academic-card {
         flex-direction: column;
         text-align: center;
         gap: 10px;
+        padding: 10px 2vw;
+        border-radius: 12px;
       }
-
       .badge {
-        width: 200px;
-        height: 150px;
+        width: 60vw;
+        max-width: 160px;
+        min-width: 80px;
+        height: auto;
+        margin: 0 auto;
+        display: block;
       }
-
       .card-text {
         align-items: center;
+        min-width: 0;
+        word-break: break-word;
       }
     }
   </style>
