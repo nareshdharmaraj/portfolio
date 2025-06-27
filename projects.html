@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projects | Naresh D</title>
+
+  <style>
+    :root {
+      --bg-color: #0f0f0f;
+      --text-color: #ffffff;
+      --accent-color: #FFD700;
+      --card-bg: rgba(255, 215, 0, 0.07);
+      --glass-border: #FFD700;
+    }
+
+    * {
+      margin: 0; padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      overflow-x: hidden;
+      padding-top: 70px; /* Prevent content from being hidden behind navbar */
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.025); /* More transparent */
+      backdrop-filter: blur(16px);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 20px;
+      z-index: 100;
+    }
+
+    .nav-profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-right: auto;
+    }
+
+    .nav-profile img {
+      width: 50px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid var(--accent-color);
+      object-fit: cover;
+    }
+
+    .nav-profile span {
+      color: var(--accent-color);
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1em;
+      padding: 6px 12px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--accent-color);
+    }
+
+    #themeToggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 2000;
+      font-size: 1.2em;
+      padding: 4px 4px;
+      border-radius: 8px;
+      background: var(--card-bg);
+      border: 2px solid var(--accent-color);
+      color: var(--accent-color);
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+    }
+
+    .projects-container {
+      padding: 120px 20px 60px;
+      text-align: center;
+      animation: fadeInSlide 1s ease;
+    }
+
+    .projects-container h2 {
+      font-size: 2.2em;
+      color: var(--accent-color);
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .projects-container h2 {
+        font-size: 1.2em;
+        padding: 0 6px;
+        word-break: break-word;
+      }
+    }
+
+    .project-counts {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      margin: 18px 0 10px 0;
+      flex-wrap: wrap;
+    }
+
+    .project-count {
+      font-size: 1.25em;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 0 10px;
+      border-radius: 8px;
+      border: none;
+      background: none;
+      transition: transform 0.2s;
+      animation: blinkCount 1.2s infinite alternate;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .project-count.completed {
+      color: #24ff0c;
+      text-shadow: 0 0 8px #24ff0c99;
+    }
+
+    .project-count.ongoing {
+      color: #cd2b8c;
+      text-shadow: 0 0 8px #fcf8fd99;
+    }
+
+    .project-count:active {
+      transform: scale(0.96);
+    }
+
+    @keyframes blinkCount {
+      0% { opacity: 1; }
+      100% { opacity: 0.6; }
+    }
+
+    .typewriter {
+      font-size: 1.1em;
+      margin-bottom: 20px;
+      border-right: 3px solid var(--accent-color);
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+      animation: typing 4s steps(50, end) forwards, blink 1s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+
+    .summary {
+      margin-top: 20px;
+      color: #aaa;
+      font-size: 1em;
+    }
+
+    .project-section {
+      margin-top: 40px;
+    }
+
+    .section-title {
+      font-size: 1.3em;
+      color: var(--accent-color);
+      margin-bottom: 20px;
+    }
+
+    .project-cards {
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      padding: 10px;
+      scroll-snap-type: x mandatory;
+    }
+
+    .project-cards::-webkit-scrollbar {
+      display: none;
+    }
+
+    .project-card {
+      flex: 0 0 320px;
+      background: var(--card-bg);
+      border: 2px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 20px;
+      scroll-snap-align: center;
+      transition: transform 0.4s;
+      backdrop-filter: blur(10px);
+    }
+
+    .project-card:hover {
+      transform: scale(1.03);
+    }
+
+    .project-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .project-card h3 {
+      color: var(--accent-color);
+      margin-bottom: 10px;
+    }
+
+    .project-card p {
+      font-size: 0.95em;
+      color: #ccc;
+      margin-bottom: 10px;
+    }
+
+    .project-card a {
+      text-decoration: none;
+      background: var(--accent-color);
+      color: #000;
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: inline-block;
+      font-weight: bold;
+      transition: 0.3s ease;
+    }
+
+    .project-card a:hover {
+      background-color: #fff;
+      color: var(--accent-color);
+    }
+
+    .note {
+      margin-top: 40px;
+      font-size: 1em;
+      color: #bbb;
+    }
+
+    /* Disclaimer bar */
+    #disclaimer-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      background: rgba(20,20,20,0.85);
+      color: #FFD700;
+      font-size: 0.85em;
+      text-align: center;
+      padding: 6px 10px 4px 10px;
+      z-index: 3000;
+      letter-spacing: 0.02em;
+      pointer-events: none;
+      user-select: none;
+    }
+    @media (max-width: 600px) {
+      #disclaimer-bar { font-size: 0.75em; padding: 5px 2px 3px 2px; }
+    }
+
+    @keyframes fadeInSlide {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .project-card {
+        flex: 0 0 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Theme Toggle -->
+<button id="themeToggle" onclick="toggleTheme()">☀️</button>
+
+<!-- Navbar -->
+<nav>
+  <div class="nav-profile">
+    <img src="images/profile.jpg" onerror="this.src='images/placeholder.jpg'" alt="Naresh D">
+    <span>Naresh D</span>
+  </div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="academics.html">Academics</a>
+    <a href="skills.html">Skills</a>
+    <a href="projects.html" class="active">Projects</a>
+    <a href="certifications.html">Certifications</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<!-- Projects Section -->
+<section class="projects-container">
+  <h2 class="typewriter">My works in action...</h2>
+
+  <div class="project-counts">
+    <span class="project-count completed" id="completedCount">✅ Completed Projects: <b>2</b></span>
+    <span class="project-count ongoing" id="ongoingCount">🛠️ Ongoing Projects: <b>1</b></span>
+  </div>
+
+  <!-- Completed Projects -->
+  <div class="project-section" id="completed-projects">
+    <h3 class="section-title">✅ Completed Projects</h3>
+    <div class="project-cards">
+
+      <!-- Project 1 -->
+      <div class="project-card">
+        <img src="images/smarthelmet.jpg" onerror="this.src='images/placeholder.jpg'" alt="Smart Helmet" />
+        <h3>Smart Helmet</h3>
+        <p>Fall detection, GPS & auto-ignition. Emergency alerts for rider safety. Filed for patent.</p>
+        <a href="#">Take me to the details →</a>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-card">
+        <img src="images/havenconnect.jpg" onerror="this.src='images/placeholder.jpg'" alt="HavenConnect" />
+        <h3>HavenConnect</h3>
+        <p>Smart local service & help network for farmers. Built using AI-powered crop suggestion & social connect.</p>
+        <a href="#">Take me to the details →</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Ongoing Projects -->
+  <div class="project-section" id="ongoing-projects">
+    <h3 class="section-title">🚀 Ongoing Projects</h3>
+    <div class="project-cards">
+
+      <!-- Project 3 -->
+      <div class="project-card">
+        <img src="images/isroproject.jpg" onerror="this.src='images/placeholder.jpg'" alt="ISRO Hackathon Project" />
+        <h3>Dual Image Super-Resolution</h3>
+        <p>Enhancing satellite image quality for ISRO Hackathon. Dual-image deep learning with blind evaluation techniques.</p>
+        <a href="#">Take me to the details →</a>
+      </div>
+
+    </div>
+  </div>
+
+  <p class="note">🌟 I'm passionate about building scalable, real-world tech. Let’s make the future smarter together!</p>
+</section>
+
+<!-- Disclaimer Bar -->
+<div id="disclaimer-bar"> &nbsp; Last Update: Mar 2025</div>
+
+<!-- Scripts -->
+<script src="background.js"></script>
+<script>
+document.getElementById('completedCount').onclick = function() {
+  document.getElementById('completed-projects').scrollIntoView({behavior: 'smooth'});
+};
+document.getElementById('ongoingCount').onclick = function() {
+  document.getElementById('ongoing-projects').scrollIntoView({behavior: 'smooth'});
+};
+</script>
+
+<script>
+  if (!localStorage.getItem("visitedOnce")) {
+    localStorage.setItem("visitedOnce", "true");
+    if (window.location.pathname !== "/index.html" && !window.location.pathname.endsWith("/")) {
+      window.location.href = "index.html";
+    }
+  }
+</script>
+
+</body>
+</html>

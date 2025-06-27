@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Certifications | Naresh D</title>
+
+  <style>
+    :root {
+      --bg-color: #0f0f0f;
+      --text-color: #ffffff;
+      --accent-color: #FFD700;
+      --card-bg: rgba(255, 215, 0, 0.07);
+      --glass-border: #FFD700;
+    }
+
+    * {
+      margin: 0; padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      overflow-x: hidden;
+      padding-top: 70px; /* Prevent content from being hidden behind navbar */
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0); /* More transparent */
+      backdrop-filter: blur(100px);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 20px;
+      z-index: 100;
+    }
+
+    .nav-profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-right: auto;
+    }
+
+    .nav-profile img {
+      width: 50px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid var(--accent-color);
+      object-fit: cover;
+    }
+
+    .nav-profile span {
+      color: var(--accent-color);
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1em;
+      padding: 6px 12px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--accent-color);
+    }
+
+    #themeToggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 2000;
+      font-size: 1.2em;
+      padding: 4px 4px;
+      border-radius: 8px;
+      background: var(--card-bg);
+      border: 2px solid var(--accent-color);
+      color: var(--accent-color);
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+    }
+
+    .certifications-container {
+      padding: 120px 20px 60px;
+      text-align: center;
+      animation: fadeInMoveUp 1s ease;
+    }
+
+    .certifications-container h2 {
+      font-size: 2em;
+      color: var(--accent-color);
+      margin-bottom: 30px;
+    }
+
+    .cert-card-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .cert-card {
+      width: 300px;
+      background: var(--card-bg);
+      border: 2px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 16px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      transition: transform 0.4s;
+    }
+
+    .cert-card:hover {
+      transform: scale(1.05);
+    }
+
+    .cert-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .cert-card h3 {
+      color: var(--accent-color);
+      font-size: 1.1em;
+      margin-bottom: 6px;
+    }
+
+    .cert-card p {
+      font-size: 0.95em;
+      color: #ccc;
+    }
+
+    .cert-card a {
+      display: inline-block;
+      margin-top: 10px;
+      text-decoration: none;
+      background: var(--accent-color);
+      color: #000;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: 0.3s ease;
+    }
+
+    .cert-card a:hover {
+      background-color: #fff;
+      color: var(--accent-color);
+    }
+
+    @keyframes fadeInMoveUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .cert-card {
+        width: 90%;
+      }
+    }
+
+    .cert-lightbox {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 5000;
+      flex-direction: column;
+    }
+    .cert-lightbox.open {
+      display: flex;
+    }
+    .cert-lightbox-header {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 10px 30px 0 0;
+    }
+    .cert-lightbox-close {
+      font-size: 2.2em;
+      color: var(--accent-color);
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color 0.2s;
+      z-index: 6000;
+    }
+    .cert-lightbox-close:hover {
+      color: #fff;
+    }
+    .cert-lightbox-img {
+      max-width: 90vw;
+      max-height: 80vh;
+      border-radius: 12px;
+      border: 3px solid var(--accent-color);
+      background: #222;
+      box-shadow: 0 2px 18px #000a;
+      margin: 0 auto;
+    }
+    @media (max-width: 600px) {
+      .cert-lightbox-img {
+        max-width: 98vw;
+        max-height: 60vh;
+      }
+    }
+
+    /* Disclaimer bar */
+    #disclaimer-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      background: rgba(20,20,20,0.85);
+      color: #FFD700;
+      font-size: 0.85em;
+      text-align: center;
+      padding: 6px 10px 4px 10px;
+      z-index: 3000;
+      letter-spacing: 0.02em;
+      pointer-events: none;
+      user-select: none;
+    }
+    @media (max-width: 600px) {
+      #disclaimer-bar { font-size: 0.75em; padding: 5px 2px 3px 2px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Toggle Button -->
+<button id="themeToggle" onclick="toggleTheme()">☀️</button>
+
+<!-- Navbar -->
+<nav>
+  <div class="nav-profile">
+    <img src="images/profile.jpg" onerror="this.src='images/placeholder.jpg'" alt="Naresh D">
+    <span>Naresh D</span>
+  </div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="academics.html">Academics</a>
+    <a href="skills.html">Skills</a>
+    <a href="projects.html">Projects</a>
+    <a href="certifications.html" class="active">Certifications</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<!-- Main Section -->
+<section class="certifications-container">
+  <h2>📜 My Certifications</h2>
+
+  <div class="cert-card-group">
+
+    <div class="cert-card">
+      <img src="images/python_basics.png" onerror="this.src='images/placeholder.jpg'" alt="Python Certificate" />
+      <h3>Python (Basic)</h3>
+      <p>Certified by HackerRank in 2024</p>
+      <a href="#" class="view-cert" data-img="images/python_basics.png">View Certificate</a>
+    </div>
+
+    <div class="cert-card">
+      <img src="images/Applied_Data_Science_with_Python_Level_2.jpg" onerror="this.src='images/placeholder.jpg'" alt="Java Certificate" />
+      <h3>Applied Data Science with Python - Level 2</h3>
+      <p>Certified by Cognitive Class - IBM in 2025</p>
+      <a href="#" class="view-cert" data-img="images/Applied_Data_Science_with_Python_Level_2.jpg">View Certificate</a>
+    </div>
+
+    <div class="cert-card">
+      <img src="images/Data Analysis Using Python.jpg" onerror="this.src='images/placeholder.jpg'" alt="C Certificate" />
+      <h3>Data Analysis Using Python (Badge)</h3>
+      <p>Certified by IBM in 2024</p>
+      <a href="#" class="view-cert" data-img="images/Data Analysis Using Python.jpg">View Certificate</a>
+    </div>
+
+    <div class="cert-card">
+      <img src="images/Data Analysis Using Python Certificate.jpg" onerror="this.src='images/placeholder.jpg'" alt="Java Certificate" />
+      <h3>Data Analysis with Python(Certificate)</h3>
+      <p>Certified by Cognitive Class in 2024</p>
+      <a href="#" class="view-cert" data-img="images/Data Analysis Using Python Certificate.jpg">View Certificate</a>
+    </div>
+
+    <div class="cert-card">
+      <img src="images/Python 101 for Data Science.jpg" onerror="this.src='images/placeholder.jpg'" alt="HTML & CSS Certificate" />
+      <h3>Python 101 for Data Science</h3>
+      <p>Certified by Cognitive Class in 2024</p>
+      <a href="#" class="view-cert" data-img="images/Python 101 for Data Science.jpg">View Certificate</a>
+    </div>
+
+    <div class="cert-card">
+      <img src="images/Design Thinking.jpg" onerror="this.src='images/placeholder.jpg'" alt="Applied Data Science with Python - Level 1" />
+      <h3>Design Thinking and Innovation</h3>
+      <p>Certified by All India Council for Technical Education (NPTEL) in 2024</p>
+      <a href="#" class="view-cert" data-img="images/Design Thinking.jpg">View Certificate</a>
+    </div>
+  </div>
+
+</section>
+
+<!-- Certificate Lightbox Popup -->
+<div id="certLightbox" class="cert-lightbox">
+  <div class="cert-lightbox-header">
+    <button class="cert-lightbox-close" id="certLightboxClose" title="Close">&times;</button>
+  </div>
+  <img id="certLightboxImg" class="cert-lightbox-img" src="" alt="Certificate Preview" />
+</div>
+
+<div id="disclaimer-bar"> &nbsp; Last Update: Mar 2025</div>
+
+<!-- Scripts -->
+<script src="background.js"></script>
+<script>
+  // Certificate Lightbox
+  const certLinks = document.querySelectorAll('.view-cert');
+  const certLightbox = document.getElementById('certLightbox');
+  const certLightboxImg = document.getElementById('certLightboxImg');
+  const certLightboxClose = document.getElementById('certLightboxClose');
+  certLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      certLightboxImg.src = this.getAttribute('data-img');
+      certLightbox.classList.add('open');
+    });
+  });
+  certLightboxClose.onclick = function(e) {
+    e.stopPropagation();
+    certLightbox.classList.remove('open');
+    certLightboxImg.src = '';
+  };
+  certLightbox.onclick = function(e) {
+    if (e.target === certLightbox) {
+      certLightbox.classList.remove('open');
+      certLightboxImg.src = '';
+    }
+  };
+</script>
+
+  <script>
+  if (!localStorage.getItem("visitedOnce")) {
+    localStorage.setItem("visitedOnce", "true");
+    if (window.location.pathname !== "/index.html" && !window.location.pathname.endsWith("/")) {
+      window.location.href = "index.html";
+    }
+  }
+
+  function openLightbox(imageSrc, caption) {
+    const lightbox = document.getElementById('certLightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+    lightboxImage.src = imageSrc;
+    lightboxCaption.innerText = caption;
+    lightbox.classList.add('open');
+  }
+
+  function closeLightbox() {
+    const lightbox = document.getElementById('certLightbox');
+    lightbox.classList.remove('open');
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Academics | Naresh D</title>
+
+  <style>
+    :root {
+      --bg-color: #0f0f0f;
+      --text-color: #ffffff;
+      --accent-color: #FFD700;
+      --card-bg: rgba(255, 215, 0, 0.07);
+      --glass-border: #FFD700;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      overflow-x: hidden;
+      padding-top: 70px; /* Prevent content from being hidden behind navbar */
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.025); /* More transparent */
+      backdrop-filter: blur(16px);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 20px;
+      z-index: 100;
+    }
+
+    .nav-profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-right: auto;
+    }
+
+    .nav-profile img {
+      width: 50px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid var(--accent-color);
+      object-fit: cover;
+    }
+
+    .nav-profile span {
+      color: var(--accent-color);
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1em;
+      padding: 6px 12px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--accent-color);
+    }
+
+    #themeToggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 2000;
+      font-size: 1.2em;
+      padding: 4px 4px;
+      border-radius: 8px;
+      background: var(--card-bg);
+      border: 2px solid var(--accent-color);
+      color: var(--accent-color);
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+    }
+
+    .timeline {
+      max-width: 900px;
+      margin: 120px auto 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+      padding: 0 20px;
+    }
+
+    .academic-card {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 30px;
+      border: 2px solid var(--glass-border);
+      box-shadow: 0 0 10px var(--accent-color);
+      backdrop-filter: blur(5px);
+      position: relative;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      width: 100px;
+      height: 100px;
+      border-radius: 70px;
+      object-fit: contain;
+    }
+
+    .card-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-text h3 {
+      color: var(--accent-color);
+      margin-bottom: 5px;
+    }
+
+    .card-text span {
+      font-size: 0.9em;
+      color: #ccc;
+      margin-bottom: 5px;
+    }
+
+    .typewriter {
+      border-right: 2px solid var(--accent-color);
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+      animation: typing 3.5s steps(40, end) forwards;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    .dot {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background-color: #00ffcc;
+      box-shadow: 0 0 10px #00ffcc;
+    }
+
+    .dot.live {
+      background-color: #ff3c00;
+      animation: blink 1s infinite alternate;
+      box-shadow: 0 0 15px #ff3c00;
+    }
+
+    @keyframes blink {
+      0% { opacity: 0.2; }
+      100% { opacity: 1; }
+    }
+
+    /* Disclaimer bar */
+    #disclaimer-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      background: rgba(20,20,20,0.85);
+      color: #FFD700;
+      font-size: 0.85em;
+      text-align: center;
+      padding: 6px 10px 4px 10px;
+      z-index: 3000;
+      letter-spacing: 0.02em;
+      pointer-events: none;
+      user-select: none;
+    }
+    @media (max-width: 600px) {
+      #disclaimer-bar { font-size: 0.75em; padding: 5px 2px 3px 2px; }
+    }
+
+    @media (max-width: 768px) {
+      .academic-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+      }
+
+      .badge {
+        width: 200px;
+        height: 150px;
+      }
+
+      .card-text {
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Theme Toggle -->
+<button id="themeToggle" onclick="toggleTheme()">☀️</button>
+
+<!-- Navigation Bar -->
+<nav>
+  <div class="nav-profile">
+    <img src="images/profile.jpg" onerror="this.src='images/placeholder.jpg'" alt="Naresh D">
+    <span>Naresh D</span>
+  </div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="academics.html" class="active">Academics</a>
+    <a href="skills.html">Skills</a>
+    <a href="projects.html">Projects</a>
+    <a href="certifications.html">Certifications</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<!-- Timeline Section -->
+<div class="timeline">
+
+  <!-- College -->
+  <div class="academic-card">
+    <img src="images/college.jpeg" class="badge" alt="College Badge" />
+    <div class="card-text">
+      <h3>B.Tech - AI & Data Science</h3>
+      <span>M. Kumarasamy College of Engineering, Karur</span>
+      <span>(2023 - Present)</span>
+      <p class="typewriter">🚀 The journey began where innovation met foundation.</p>
+    </div>
+    <div class="dot live"></div>
+  </div>
+
+  <!-- Higher Secondary -->
+  <div class="academic-card">
+    <img src="images/school.png" class="badge" alt="HSC Badge" />
+    <div class="card-text">
+      <h3>Higher Secondary Education</h3>
+      <span>TNPL Public School, CBSE, Kagithapuram</span>
+      <span>(2022 - 2023)</span>
+      <p class="typewriter">🔍 I learned to ask questions more than memorize answers.</p>
+    </div>
+    <div class="dot"></div>
+  </div>
+
+  <!-- Secondary -->
+  <div class="academic-card">
+    <img src="images/school.png" class="badge" alt="School Badge" />
+    <div class="card-text">
+      <h3>Secondary School</h3>
+      <span>TNPL Public School, Kagithapuram</span>
+      <span>(2020 - 2021)</span>
+      <p class="typewriter">🌱 The roots of learning and curiosity were planted here.</p>
+    </div>
+    <div class="dot"></div>
+  </div>
+
+</div>
+
+<!-- Disclaimer Bar -->
+<div id="disclaimer-bar"> &nbsp; Last Update: Mar 2025</div>
+
+<!-- Scripts -->
+<script src="background.js"></script>
+
+
+
+
+
+<!-- Background Animation & Theme Controller -->
+  <script src="background.js"></script>
+
+  <script>
+    if (!localStorage.getItem("visitedOnce")) {
+      localStorage.setItem("visitedOnce", "true");
+        if (window.location.pathname !== "/index.html" && !window.location.pathname.endsWith("/")) {
+          window.location.href = "index.html";
+        }
+    }
+  </script>
+</body>
+</html>

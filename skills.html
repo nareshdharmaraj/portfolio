@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Skills | Naresh D</title>
+
+  <style>
+    :root {
+      --bg-color: #0f0f0f;
+      --text-color: #ffffff;
+      --accent-color: #FFD700;
+      --card-bg: rgba(255, 215, 0, 0.07);
+      --glass-border: #FFD700;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      overflow-x: hidden;
+      padding-top: 70px; /* Prevent content from being hidden behind navbar */
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.025); /* More transparent */
+      backdrop-filter: blur(16px);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 20px;
+      z-index: 100;
+    }
+
+    .nav-profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-right: auto;
+    }
+
+    .nav-profile img {
+      width: 50px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid var(--accent-color);
+      object-fit: cover;
+    }
+
+    .nav-profile span {
+      color: var(--accent-color);
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1em;
+      padding: 6px 12px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--accent-color);
+    }
+
+    #themeToggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 2000;
+      font-size: 1.2em;
+      padding: 4px 4px;
+      border-radius: 8px;
+      background: var(--card-bg);
+      border: 2px solid var(--accent-color);
+      color: var(--accent-color);
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+    }
+
+    .skills-section {
+      max-width: 1000px;
+      margin: 120px auto 60px;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1.2s ease-out forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 2px solid var(--glass-border);
+      backdrop-filter: blur(12px);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 12px var(--accent-color);
+    }
+
+    .card h2 {
+      margin-bottom: 20px;
+      color: var(--accent-color);
+      text-align: center;
+    }
+
+    .skill-bar {
+      margin-bottom: 20px;
+    }
+
+    .skill-bar label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .bar {
+      position: relative;
+      height: 20px;
+      background: #333;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 12px;
+      background: linear-gradient(to right, #00ffe0, var(--accent-color));
+      transition: width 2.5s ease;
+    }
+
+    .skill-tag {
+      font-size: 0.85em;
+      font-style: italic;
+      color: #aaa;
+      margin-left: 6px;
+    }
+
+    .typewriter-line {
+      font-size: 1.1em;
+      color: #ccc;
+      width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid var(--accent-color);
+      animation: typing 5s steps(60, end) 1 forwards;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to   { width: 100%; }
+    }
+
+    /* Disclaimer bar */
+    #disclaimer-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      background: rgba(20,20,20,0.85);
+      color: #FFD700;
+      font-size: 0.85em;
+      text-align: center;
+      padding: 6px 10px 4px 10px;
+      z-index: 3000;
+      letter-spacing: 0.02em;
+      pointer-events: none;
+      user-select: none;
+    }
+    @media (max-width: 600px) {
+      #disclaimer-bar { font-size: 0.75em; padding: 5px 2px 3px 2px; }
+    }
+
+    @media (max-width: 768px) {
+      .card { padding: 20px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Theme Toggle -->
+<button id="themeToggle" onclick="toggleTheme()">☀️</button>
+
+<!-- Navigation Bar -->
+<nav>
+  <div class="nav-profile">
+    <img src="images/profile.jpg" onerror="this.src='images/placeholder.jpg'" alt="Naresh D">
+    <span>Naresh D</span>
+  </div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="academics.html">Academics</a>
+    <a href="skills.html" class="active">Skills</a>
+    <a href="projects.html">Projects</a>
+    <a href="certifications.html">Certifications</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<!-- Skills Section -->
+<div class="skills-section">
+
+  <!-- Hard Skills -->
+  <div class="card">
+    <h2>Technical / Hard Skills</h2>
+
+    <div class="skill-bar">
+      <label>Python<span class="skill-tag"> (Basic)</span></label>
+      <div class="bar"><div class="bar-fill" data-fill="30"></div></div>
+    </div>
+
+    <div class="skill-bar">
+      <label>Java<span class="skill-tag"> (Basic)</span></label>
+      <div class="bar"><div class="bar-fill" data-fill="20"></div></div>
+    </div>
+
+    <div class="skill-bar">
+      <label>C<span class="skill-tag"> (Basic)</span></label>
+      <div class="bar"><div class="bar-fill" data-fill="20"></div></div>
+    </div>
+
+    <div class="skill-bar">
+      <label>HTML & CSS<span class="skill-tag"> (Basic)</span></label>
+      <div class="bar"><div class="bar-fill" data-fill="35"></div></div>
+    </div>
+
+    <div class="skill-bar">
+      <label>MySQL<span class="skill-tag"> (Intermediate)</span></label>
+      <div class="bar"><div class="bar-fill" data-fill="60"></div></div>
+    </div>
+
+    <div class="skill-bar">
+      <label>IBM Cognos<span class="skill-tag"> (Data Analysis)</span></label>
+      <div class="bar"><div class="bar-fill" data-fill="75"></div></div>
+    </div>
+  </div>
+
+  <!-- Soft Skills -->
+  <div class="card">
+    <h2>Soft Skills</h2>
+
+    <div class="skill-bar">
+      <label>Time Management</label>
+      <div class="bar"><div class="bar-fill" data-fill="100"></div></div>
+    </div>
+
+    <div class="skill-bar">
+      <label>Analytical Thinking</label>
+      <div class="bar"><div class="bar-fill" data-fill="100"></div></div>
+    </div>
+
+    <div class="skill-bar">
+      <label>Team Collaboration</label>
+      <div class="bar"><div class="bar-fill" data-fill="100"></div></div>
+    </div>
+
+    <div class="skill-bar">
+      <label>Adaptability</label>
+      <div class="bar"><div class="bar-fill" data-fill="100"></div></div>
+    </div>
+
+    <div class="skill-bar">
+      <label>Effective Communication</label>
+      <div class="bar"><div class="bar-fill" data-fill="100"></div></div>
+    </div>
+
+    <div class="skill-bar">
+      <label>Leadership</label>
+      <div class="bar"><div class="bar-fill" data-fill="100"></div></div>
+    </div>
+
+    
+  </div>
+  <p class="typewriter-line">🛠️ Learning is a journey — and I’m still growing every day.</p>
+
+</div>
+
+<!-- Disclaimer Bar -->
+<div id="disclaimer-bar"> &nbsp; Last Update: Mar 2025</div>
+
+<!-- Scripts -->
+<script src="background.js"></script>
+<script>
+  window.addEventListener("load", () => {
+    // Animate bar-fills from 0% to data-fill
+    document.querySelectorAll(".bar-fill").forEach(bar => {
+      const percent = bar.getAttribute("data-fill");
+      bar.style.width = percent + "%";
+    });
+  });
+
+  // Optional: re-animate on scroll using IntersectionObserver
+</script>
+
+  <script>
+  if (!localStorage.getItem("visitedOnce")) {
+    localStorage.setItem("visitedOnce", "true");
+    if (window.location.pathname !== "/index.html" && !window.location.pathname.endsWith("/")) {
+      window.location.href = "index.html";
+    }
+  }
+</script>
+
+</body>
+</html>

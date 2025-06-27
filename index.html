@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Naresh D | AI Portfolio</title>
+
+  <!-- Theme Variables -->
+  <style>
+    :root {
+      --bg-color: #0f0f0f;
+      --text-color: #ffffff;
+      --accent-color: #FFD700;
+      --card-bg: rgba(255, 215, 0, 0.07);
+      --glass-border: #FFD700;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      overflow-x: hidden;
+      padding-top: 60px; /* Prevent content from being hidden behind navbar */
+    }
+
+    /* Loader */
+    #loader {
+      position: fixed;
+      top: 0; left: 0;
+      height: 100vh;
+      width: 100vw;
+      background-color: #000;
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: gold;
+      font-size: 2.2rem;
+      font-family: 'Segoe UI', sans-serif;
+      animation: loaderFlash 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes loaderFlash {
+      from { opacity: 1; transform: scale(1); }
+      to   { opacity: 0.3; transform: scale(1.1); }
+    }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.025); /* More transparent */
+      backdrop-filter: blur(16px);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 20px;
+      z-index: 100;
+    }
+
+    .nav-profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-right: auto;
+    }
+
+    .nav-profile img {
+      width: 50px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid var(--accent-color);
+      object-fit: cover;
+    }
+
+    .nav-profile span {
+      color: var(--accent-color);
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1em;
+      padding: 6px 12px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--accent-color);
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 20px 20px;
+    }
+
+    .hero-container {
+      max-width: 800px;
+      width: 100%;
+      text-align: center;
+      padding: 40px 30px;
+      border-radius: 20px;
+      position: relative;
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+    }
+
+    .hero-container::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      border-radius: 20px;
+      padding: 2px;
+      background: linear-gradient(270deg, var(--accent-color), #0077ff, var(--accent-color));
+      background-size: 400% 400%;
+      animation: borderFlow 8s linear infinite;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      z-index: -1;
+    }
+
+    @keyframes borderFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .hero-profile {
+      width: 150px;
+      height: 180px;
+      border-radius: 50%;
+      border: 3px solid var(--accent-color);
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: 2.5em;
+      color: var(--accent-color);
+      margin-bottom: 10px;
+    }
+
+    .hero h2 {
+      font-size: 1.3em;
+      color: #24ff0c;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 1.05em;
+      color: var(--text-color);
+      line-height: 1.6em;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInMoveUp 1s ease-out 0.3s forwards;
+    }
+
+    @keyframes fadeInMoveUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #official-tagline {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: clamp(0.6rem, 1.5vw, 0.9rem);
+      font-weight: 400;
+      white-space: nowrap;
+      color: var(--accent-color);
+      opacity: 0.7;
+      text-shadow: 0 0 6px var(--accent-color);
+      backdrop-filter: blur(4px);
+      padding: 3px 10px;
+      border-radius: 10px;
+      z-index: 1000;
+      pointer-events: none;
+      margin-bottom: 0;
+    }
+    /* Theme Toggle */
+    #themeToggle {
+      position: fixed;
+      bottom: 50px;
+      right: 20px;
+      z-index: 2000;
+      font-size: 1.2em;
+      padding: 4px 4px;
+      border-radius: 8px;
+      background: var(--card-bg);
+      border: 2px solid var(--accent-color);
+      color: var(--accent-color);
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2em; }
+      .hero h2 { font-size: 1.1em; }
+      .hero-profile { width: 100px; height: 100px; }
+    }
+
+    :root {
+    --bg-color: #0f0f0f;
+    --text-color: #ffffff;
+    --accent-color: #FFD700;
+    --card-bg: rgba(255, 215, 0, 0.07);
+    --glass-border: #FFD700;
+  }
+
+  /* Reset, body, nav, container, animations etc... [already provided in previous messages] */
+
+  #typing-container {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    font-weight: 400;
+    color: var(--text-color);
+    white-space: pre-wrap;
+    max-width: 800px;
+    text-align: center;
+    margin: 20px auto 10px;
+    padding: 10px;
+    animation: fadeInUp 1s ease-out;
+    min-height: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+  }
+
+  .cursor {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: var(--accent-color);
+    animation: blink 0.7s infinite;
+    margin-left: 4px;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* Disclaimer bar */
+#disclaimer-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  background: rgba(20,20,20,0.85);
+  color: #FFD700;
+  font-size: 0.85em;
+  text-align: center;
+  padding: 6px 10px 4px 10px;
+  z-index: 3000;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  user-select: none;
+}
+@media (max-width: 600px) {
+  #disclaimer-bar { font-size: 0.75em; padding: 5px 2px 3px 2px; }
+}
+  </style>
+</head>
+
+<body>
+
+  <!-- Loader -->
+  <div id="loader">Naresh D</div>
+
+  <!-- Theme Toggle -->
+  <button id="themeToggle" onclick="toggleTheme()">☀️</button>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="nav-profile">
+      <img src="images/profile.jpg" onerror="this.src='images/placeholder.jpg'" alt="Naresh D">
+      <span>Naresh D</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="academics.html">Academics</a>
+      <a href="skills.html">Skills</a>
+      <a href="projects.html">Projects</a>
+      <a href="certifications.html">Certifications</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero fade-in">
+    <div class="hero-container">
+      <img src="images/profile.jpg" onerror="this.src='images/placeholder.jpg'" alt="Naresh D" class="hero-profile" />
+      <h1>Naresh D</h1>
+      <h2 id = "subtitle">AI & Data Science Enthusiast | Smart Solutions Creator</h2>
+      <div id="typing-container">
+      <p id="typing-text"></p><span class="cursor">|</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Disclaimer Bar -->
+  <div id="disclaimer-bar">&nbsp; Last Update: Mar 2025</div>
+
+  <!-- Scripts -->
+  <script>
+    window.addEventListener("load", () => {
+      const loader = document.getElementById("loader");
+      if (loader) loader.style.display = "none";
+    });
+
+    const summaryText = `I’m driven by curiosity and innovation, crafting intelligent automation systems  
+that reshape efficiency. With a sharp eye for AI and a heart tuned to data,  
+I design experiences that evolve seamlessly.  
+Ready to disrupt the ordinary — one system at a time.`;
+
+  let idx = 0;
+  const typingEl = document.getElementById("typing-text");
+
+  function typeChar() {
+    if (idx < summaryText.length) {
+      typingEl.innerHTML += summaryText.charAt(idx);
+      idx++;
+      setTimeout(typeChar, 22);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", typeChar);
+  </script>
+  <script src="background.js"></script>
+  <p id="official-tagline">✨ This is my official portfolio — a digital gateway to who I am and what I build✨</p>
+</body>
+</html>
