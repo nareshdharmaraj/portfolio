@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Skills | Naresh D</title>
-
+  <title>Contact | Naresh D</title>
+  <script src="background.js" defer></script>
   <style>
     :root {
       --bg-color: #0f0f0f;
@@ -14,18 +14,13 @@
       --glass-border: #FFD700;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
+      margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: var(--bg-color);
+      background: var(--bg-color);
       color: var(--text-color);
       overflow-x: hidden;
-      padding-top: 70px; /* Prevent content from being hidden behind navbar */
+      padding-top: 70px; /* Add padding to prevent content from being hidden behind navbar */
     }
 
     nav {
@@ -84,13 +79,210 @@
       color: var(--accent-color);
     }
 
+    h2 {
+      text-align: center;
+      color: var(--accent-color);
+      margin-top: 40px;
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    .section {
+      background: var(--card-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 20px 32px; /* Add horizontal padding */
+      margin: 20px auto;
+      max-width: 900px;
+      box-shadow: 0 0 10px var(--glass-border);
+    }
+
+    @media (max-width: 600px) {
+      .section {
+        padding: 16px 8px;
+      }
+    }
+
+    .info-block {
+      margin-bottom: 15px;
+    }
+
+    .info-block strong {
+      color: var(--accent-color);
+    }
+
+    .photo-block {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      background: var(--card-bg);
+      border-radius: 15px;
+      box-shadow: 0 0 10px var(--glass-border);
+      padding: 24px 20px;
+      margin-bottom: 24px;
+      border: 1.5px solid var(--glass-border);
+      transition: box-shadow 0.3s;
+    }
+
+    .photo-block:hover {
+      box-shadow: 0 0 18px var(--accent-color);
+    }
+
+    .photo-block img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid var(--accent-color);
+      object-fit: cover;
+      margin-right: 0;
+      box-shadow: 0 2px 12px #0006;
+      background: #222;
+    }
+
+    .photo-block div {
+      flex: 1;
+      font-size: 1.08em;
+    }
+
+    .socials {
+      text-align: center;
+      margin: 30px 0 10px;
+    }
+
+    .socials a {
+      margin: 0 12px;
+      font-size: 1.8rem;
+      color: var(--accent-color);
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+
+    .socials a:hover {
+      transform: scale(1.2);
+    }
+
+    .resume-btn {
+      display: block;
+      margin: 30px auto;
+      padding: 8px 16px;
+      font-size: 1rem;
+      color: var(--accent-color);
+      background: transparent;
+      border: 2px solid var(--accent-color);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.4s ease-in-out;
+    }
+
+    .resume-btn:hover {
+      transform: scale(1.1);
+      background: var(--card-bg);
+    }
+
+    .carousel {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+      padding: 0 48px; /* Add space for buttons */
+      min-height: 200px;
+      background: none;
+      overflow: visible;
+    }
+
+    .carousel img {
+      width: 90px;
+      height: 90px;
+      margin: 0 8px;
+      border-radius: 12px;
+      border: 2px solid var(--accent-color);
+      object-fit: cover;
+      box-shadow: 0 2px 10px #0007;
+      background: #222;
+      opacity: 0.85;
+      cursor: pointer;
+      transition: box-shadow 0.3s, opacity 0.3s;
+      z-index: 1;
+    }
+
+    .carousel img.active {
+      /* No over-zoom effect */
+      box-shadow: 0 0 18px var(--accent-color);
+      opacity: 1;
+      z-index: 2;
+    }
+
+    .carousel-nav {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      z-index: 10;
+    }
+
+    .carousel-btn {
+      pointer-events: auto;
+      background: var(--card-bg);
+      border: 2px solid var(--accent-color);
+      color: var(--accent-color);
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      font-size: 1.3em;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .carousel-btn:hover {
+      background: var(--accent-color);
+      color: var(--bg-color);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .photo-block {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 16px;
+      }
+      .photo-block img {
+        margin: 0 0 10px 0;
+        width: 90px;
+        height: 90px;
+      }
+      .carousel {
+        padding: 0 16px;
+      }
+      .carousel img {
+        width: 60px;
+        height: 60px;
+      }
+      .carousel img.active {
+        width: 120px;
+        height: 120px;
+      }
+    }
+
+    /* Theme Toggle */
     #themeToggle {
       position: fixed;
       bottom: 20px;
       right: 20px;
       z-index: 2000;
       font-size: 1.2em;
-      padding: 4px 4px;
+      padding: 6px 8px;
       border-radius: 8px;
       background: var(--card-bg);
       border: 2px solid var(--accent-color);
@@ -99,89 +291,67 @@
       backdrop-filter: blur(8px);
     }
 
-    .skills-section {
-      max-width: 1000px;
-      margin: 120px auto 60px;
-      padding: 0 20px;
-      display: flex;
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 5000;
       flex-direction: column;
-      gap: 50px;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 1.2s ease-out forwards;
     }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .card {
-      background: var(--card-bg);
-      border: 2px solid var(--glass-border);
-      backdrop-filter: blur(12px);
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 0 12px var(--accent-color);
-    }
-
-    .card h2 {
-      margin-bottom: 20px;
-      color: var(--accent-color);
-      text-align: center;
-    }
-
-    .skill-bar {
-      margin-bottom: 20px;
-    }
-
-    .skill-bar label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 6px;
-    }
-
-    .bar {
-      position: relative;
-      height: 20px;
-      background: #333;
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .bar-fill {
-      height: 100%;
-      width: 0%;
-      border-radius: 12px;
-      background: linear-gradient(to right, #00ffe0, var(--accent-color));
-      transition: width 2.5s ease;
-    }
-
-    .skill-tag {
-      font-size: 0.85em;
-      font-style: italic;
-      color: #aaa;
-      margin-left: 6px;
-    }
-
-    .typewriter-line {
-      font-size: 1.1em;
-      color: #ccc;
-      width: 0;
-      overflow: hidden;
-      white-space: nowrap;
-      border-right: 2px solid var(--accent-color);
-      animation: typing 5s steps(60, end) 1 forwards;
-      margin-top: 10px;
-      text-align: center;
+    .lightbox.open {
       display: flex;
     }
-
-    @keyframes typing {
-      from { width: 0; }
-      to   { width: 100%; }
+    .lightbox-header {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 10px 30px 0 0;
+    }
+    .lightbox-close {
+      font-size: 2.2em;
+      color: var(--accent-color);
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color 0.2s;
+      z-index: 6000;
+    }
+    .lightbox-close:hover {
+      color: #fff;
+    }
+    .lightbox-carousel {
+      display: flex;
+      gap: 18px;
+      overflow-x: auto;
+      padding: 20px 30px 30px 30px;
+      max-width: 90vw;
+      max-height: 70vh;
+      align-items: center;
+    }
+    .lightbox-carousel img {
+      width: 320px;
+      height: 320px;
+      object-fit: contain;
+      border-radius: 12px;
+      border: 3px solid var(--accent-color);
+      background: #222;
+      box-shadow: 0 2px 18px #000a;
+      cursor: pointer;
+      transition: box-shadow 0.3s;
+    }
+    @media (max-width: 600px) {
+      .lightbox-carousel img {
+        width: 90vw;
+        height: 40vw;
+        min-width: 180px;
+        min-height: 120px;
+      }
     }
 
     /* Disclaimer bar */
@@ -199,143 +369,160 @@
       letter-spacing: 0.02em;
       pointer-events: none;
       user-select: none;
-      word-break: break-word;
-      max-width: 100vw;
     }
     @media (max-width: 600px) {
-      #disclaimer-bar { font-size: 0.75em; padding: 5px 2px 3px 2px; word-break: break-word; max-width: 100vw; }
-    }
-
-    @media (max-width: 768px) {
-      .card { padding: 20px; }
+      #disclaimer-bar { font-size: 0.75em; padding: 5px 2px 3px 2px; }
     }
   </style>
 </head>
-
 <body>
 
-<!-- Theme Toggle -->
-<button id="themeToggle" onclick="toggleTheme()">☀️</button>
+  <!-- Theme Toggle -->
+  <button id="themeToggle" onclick="toggleTheme()">☀️</button>
 
-<!-- Navigation Bar -->
-<nav>
-  <div class="nav-profile">
-    <img src="images/profile.jpg" onerror="this.src='images/placeholder.jpg'" alt="Naresh D">
-    <span>Naresh D</span>
+  <!-- Navbar -->
+  <nav>
+    <div class="nav-profile">
+      <img src="images/profile.jpg" onerror="this.src='images/placeholder.jpg'" alt="Naresh D">
+      <span>Naresh D</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="academics.html">Academics</a>
+      <a href="skills.html">Skills</a>
+      <a href="projects.html">Projects</a>
+      <a href="certifications.html">Certifications</a>
+      <a href="contact.html" class="active">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Personal Details -->
+  <h2>🧍 Personal Details</h2>
+  <div class="section">
+    <div class="info-block"><strong>📍 Address:</strong> 20/2, Kokila Marriage Hall Backside, South Street, P.Velur, Namakkal(D.T) – 638182</div>
+    <div class="info-block"><strong>🎂 Date of Birth:</strong> 31st July 2006</div>
+    <div class="info-block"><strong>📞 Mobile:</strong> +91 72 00 75 45 66</div>
+    <div class="info-block"><strong>📧 Email:</strong> nareshd2006@gmail.com</div>
+    <div class="info-block"><strong>🛂 Passport No:</strong> .... </div>
+    <div class="info-block"><strong>🎯 Hobbies:</strong> Exploring AI, Cycling, Blogging, UI Designing</div>
   </div>
-  <div class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="academics.html">Academics</a>
-    <a href="skills.html">Skills</a>
-    <a href="projects.html">Projects</a>
-    <a href="certifications.html">Certifications</a>
-    <a href="contact.html" class="active">Contact</a>
-  </div>
-</nav>
 
-<!-- Skills Section -->
-<div class="skills-section">
-
-  <!-- Hard Skills -->
-  <div class="card">
-    <h2>Technical / Hard Skills</h2>
-
-    <div class="skill-bar">
-      <label>Python<span class="skill-tag"> (Basic)</span></label>
-      <div class="bar"><div class="bar-fill" data-fill="30"></div></div>
-    </div>
-
-    <div class="skill-bar">
-      <label>Java<span class="skill-tag"> (Basic)</span></label>
-      <div class="bar"><div class="bar-fill" data-fill="20"></div></div>
-    </div>
-
-    <div class="skill-bar">
-      <label>C<span class="skill-tag"> (Basic)</span></label>
-      <div class="bar"><div class="bar-fill" data-fill="20"></div></div>
-    </div>
-
-    <div class="skill-bar">
-      <label>HTML & CSS<span class="skill-tag"> (Basic)</span></label>
-      <div class="bar"><div class="bar-fill" data-fill="35"></div></div>
-    </div>
-
-    <div class="skill-bar">
-      <label>MySQL<span class="skill-tag"> (Intermediate)</span></label>
-      <div class="bar"><div class="bar-fill" data-fill="60"></div></div>
-    </div>
-
-    <div class="skill-bar">
-      <label>IBM Cognos<span class="skill-tag"> (Data Analysis)</span></label>
-      <div class="bar"><div class="bar-fill" data-fill="75"></div></div>
+  <!-- Father Section -->
+  <h2>👨 Father</h2>
+  <div class="section photo-block">
+    <img src="images/father.png" onerror="this.src='images/placeholder.jpg'" alt="Father">
+    <div>
+      <div><strong>Name:</strong> Dharmaraj K</div>
+      <div><strong>Profession:</strong> Admission Officer</div>
+      <div><strong>Institution:</strong> M. Kumarasamy College of Engineering, Karur</div>
+      <div style="margin-top:12px;color:#FFD700;font-style:italic;">A true pillar of our family, my father’s dedication and encouragement have been the foundation of my growth. His unwavering support and values have shaped my journey and inspired my achievements.</div>
     </div>
   </div>
 
-  <!-- Soft Skills -->
-  <div class="card">
-    <h2>Soft Skills</h2>
-
-    <div class="skill-bar">
-      <label>Time Management</label>
-      <div class="bar"><div class="bar-fill" data-fill="100"></div></div>
+  <!-- Mother Section -->
+  <h2>👩 Mother</h2>
+  <div class="section photo-block">
+    <img src="images/mother.jpg" onerror="this.src='images/placeholder.jpg'" alt="Mother">
+    <div>
+      <div><strong>Name:</strong> Dr. K. Sudha</div>
+      <div><strong>Profession:</strong> Guest Lecturer in Tamil</div>
+      <div><strong>Institution:</strong> NKR College for Women, Namakkal</div>
+      <div style="margin-top:12px;color:#FFD700;font-style:italic;">My mother’s love, wisdom, and tireless care are the heart of our family. Her belief in me and her sacrifices have been the driving force behind my success and happiness.</div>
     </div>
-
-    <div class="skill-bar">
-      <label>Analytical Thinking</label>
-      <div class="bar"><div class="bar-fill" data-fill="100"></div></div>
-    </div>
-
-    <div class="skill-bar">
-      <label>Team Collaboration</label>
-      <div class="bar"><div class="bar-fill" data-fill="100"></div></div>
-    </div>
-
-    <div class="skill-bar">
-      <label>Adaptability</label>
-      <div class="bar"><div class="bar-fill" data-fill="100"></div></div>
-    </div>
-
-    <div class="skill-bar">
-      <label>Effective Communication</label>
-      <div class="bar"><div class="bar-fill" data-fill="100"></div></div>
-    </div>
-
-    <div class="skill-bar">
-      <label>Leadership</label>
-      <div class="bar"><div class="bar-fill" data-fill="100"></div></div>
-    </div>
-
-    
   </div>
-  <p class="typewriter-line">🛠️ Learning is a journey — and I’m still growing every day.</p>
 
-</div>
+  <!-- Social Links -->
+  <h2>🌐 Explore My Social Pages</h2>
+  <div class="socials">
+    <a href="https://www.linkedin.com/in/nareshdharmaraj" target="_blank" title="LinkedIn">🔗</a>
+    <a href="https://www.hackerrank.com/profile/nareshd2006" target="_blank" title="HackerRank">💻</a>
+    <a href="https://www.instagram.com/naresh_dharmaraj/" target="_blank" title="Instagram">📸</a>
+    <a href="https://github.com/nareshdharmaraj" target="_blank" title="GitHub">🐙</a>
+    <a href="https://www.codechef.com/users/clean_pond_17" target="_blank" title="CodeChef">🍜</a>
+  </div>
 
-<!-- Disclaimer Bar -->
-<div id="disclaimer-bar"> &nbsp; Last Update: Mar 2025</div>
+  <!-- Resume Button -->
+  <button class="resume-btn" onclick="window.open('Naresh_Resume.pdf')">📄 Download Resume</button>
 
-<!-- Scripts -->
-<script src="background.js"></script>
-<script>
-  window.addEventListener("load", () => {
-    // Animate bar-fills from 0% to data-fill
-    document.querySelectorAll(".bar-fill").forEach(bar => {
-      const percent = bar.getAttribute("data-fill");
-      bar.style.width = percent + "%";
-    });
-  });
+  <!-- Gallery -->
+  <h2>🖼️ My Personal Moments</h2>
+  <div class="carousel" id="carousel-section">
+    <button class="carousel-btn" id="prevBtn" title="Previous" style="position:absolute;left:0;top:50%;transform:translateY(-50%);">❮</button>
+    <img src="images/pic1.jpg" alt="pic1">
+    <img src="images/pic2.jpg" alt="pic2">
+    <img src="images/pic3.jpg" alt="pic3">
+    <img src="images/pic4.jpg" alt="pic4">
+    <img src="images/pic5.jpg" alt="pic5">
+    <button class="carousel-btn" id="nextBtn" title="Next" style="position:absolute;right:0;top:50%;transform:translateY(-50%);">❯</button>
+  </div>
 
-  // Optional: re-animate on scroll using IntersectionObserver
-</script>
+  <!-- Lightbox Modal Popup -->
+  <div id="lightbox" class="lightbox">
+    <div class="lightbox-header">
+      <button class="lightbox-close" id="lightboxClose" title="Close">&times;</button>
+    </div>
+    <div class="lightbox-carousel" id="lightboxCarousel">
+      <img src="images/pic1.jpg" alt="pic1">
+      <img src="images/pic2.jpg" alt="pic2">
+      <img src="images/pic3.jpg" alt="pic3">
+      <img src="images/pic4.jpg" alt="pic4">
+      <img src="images/pic5.jpg" alt="pic5">
+    </div>
+  </div>
+
+  <!-- Disclaimer Bar -->
+  <div id="disclaimer-bar"> &nbsp; Last Update: Mar 2025</div>
 
   <script>
-  if (!localStorage.getItem("visitedOnce")) {
-    localStorage.setItem("visitedOnce", "true");
-    if (window.location.pathname !== "/index.html" && !window.location.pathname.endsWith("/")) {
-      window.location.href = "index.html";
-    }
-  }
-</script>
+    // Lightbox
+    const images = document.querySelectorAll('.carousel img');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxClose = document.getElementById('lightboxClose');
+    const lightboxCarousel = document.getElementById('lightboxCarousel');
+    const lightboxImgs = lightboxCarousel.querySelectorAll('img');
 
+    images.forEach((img, i) => {
+      img.addEventListener('click', () => {
+        lightbox.classList.add('open');
+        // Scroll to the clicked image in the lightbox
+        setTimeout(() => {
+          lightboxImgs[i].scrollIntoView({behavior: 'smooth', inline: 'center', block: 'nearest'});
+        }, 50);
+      });
+    });
+    lightboxClose.onclick = function(e) {
+      e.stopPropagation();
+      lightbox.classList.remove('open');
+    };
+    lightbox.onclick = function(e) {
+      if (e.target === lightbox) lightbox.classList.remove('open');
+    };
+
+    // Carousel navigation
+    let current = 0;
+    function showSlide(idx) {
+      current = idx;
+      images.forEach((img, i) => img.classList.toggle('active', i === idx));
+      images[idx].scrollIntoView({behavior: 'smooth', inline: 'center', block: 'nearest'});
+    }
+    document.getElementById('prevBtn').onclick = (e) => {
+      e.stopPropagation();
+      current = (current - 1 + images.length) % images.length;
+      showSlide(current);
+    };
+    document.getElementById('nextBtn').onclick = (e) => {
+      e.stopPropagation();
+      current = (current + 1) % images.length;
+      showSlide(current);
+    };
+  </script>
+  <script>
+    if (!localStorage.getItem("visitedOnce")) {
+      localStorage.setItem("visitedOnce", "true");
+        if (window.location.pathname !== "/index.html" && !window.location.pathname.endsWith("/")) {
+          window.location.href = "index.html";
+        }
+    }
+  </script>
 </body>
 </html>
